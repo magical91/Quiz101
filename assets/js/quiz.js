@@ -55,6 +55,7 @@ function showQuestion(question) {
 }
 
 function resetState() {
+    clearStatusClass(document.body);
     nextButton.classList.add("hide");
     while (answerButtonsEl.firstChild) {
         answerButtonsEl.removeChild(answerButtonsEl.firstChild)
@@ -126,7 +127,7 @@ var questions = [
         ]
     },
     {
-        question: "How can you add a comment in a JavaScript?",
+        question: "How can you add a comment in JavaScript?",
         answers: [
             { text: "<!--This is a comment-->", correct: false },
             { text: "//This is a comment", correct: true },
