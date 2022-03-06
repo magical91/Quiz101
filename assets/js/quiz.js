@@ -16,7 +16,10 @@ var answerButtonsEl = document.getElementById("answers")
 let shuffleQuestions, currentQuestionIndex
 
 startButton.addEventListener("click", startGame);
-
+nextButton.addEventListener("click", () => {
+    currentQuestionIndex++;
+    nextQuestion();
+});
 
 
 function startGame() {
@@ -66,6 +69,13 @@ function selectAnswer(e) {
     Array.from(answerButtonsEl.children).forEach(button => {
         seStatusClass(button, button.dataset.correct)
     })
+    if (shuffleQuestions.length > currentQuestionIndex + 1) {
+        nextButton.classList.remove("hide")
+    } else {
+        startButton.innerText = "Restart";
+        startButton.classList.remove("hide");
+    }
+    
 };
 
 
@@ -80,7 +90,7 @@ function seStatusClass(element, correct) {
 
 
 function clearStatusClass(element) {
-    element.classList.remove("remove")
+    element.classList.remove("correct")
     element.classList.remove("wrong")
 }
 
@@ -92,9 +102,45 @@ var questions = [
         question: "Which of the provided answers is NOT a data type?",
         answers: [
             { text: "Boolean", correct: false },
-            { text: "Object", correct: false},
+            { text: "Object", correct: false },
             { text: "Function", correct: true },
             { text: "Symbol", correct: false }
         ]
-    }
+    },
+    {
+        question: "Inside which HTML element do we put th JavaScript?",
+        answers: [
+            { text: "<script>", correct: true },
+            { text: "<javascript>", correct: false },
+            { text: "<scripting>", correct: false },
+            { text: "<js>", correct: false }
+        ]
+    },
+    {
+        question: "How do you write 'Hello World' in an alert box?",
+        answers: [
+            { text: "msgBox('Hello World');", correct: false },
+            { text: "alert('Hello World');", correct: true },
+            { text: "msg('Hello World');", correct: false },
+            { text: "alertBox('Hello World');", correct: false }
+        ]
+    },
+    {
+        question: "How can you add a comment in a JavaScript?",
+        answers: [
+            { text: "<!--This is a comment-->", correct: false },
+            { text: "//This is a comment", correct: true },
+            { text: "'This is a comment", correct: false },
+            { text: "/*This is a comment*/", correct: false }
+        ]
+    },
+    {
+        question: "How do you find the number with the highest value of x and y?",
+        answers: [
+            { text: "Math.ceil(x, y)", correct: false },
+            { text: "top(x, y)", correct: false },
+            { text: "ceil(x, y)", correct: false },
+            { text: "Math.max(x, y)", correct: true }
+        ]
+    },
 ]
