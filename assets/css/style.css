@@ -1,0 +1,55 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+body {
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    /* padding: 0;
+    margin: 0;
+    width: 500px;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center; */
+}
+
+.answers {
+    display: grid;
+    gap: 50px;
+    margin: 50px 0;
+    width: 100%;
+}
+
+.btn {
+    border: 1px solid yellow;
+    background-color: purple;
+    border-radius: 5px;
+    padding: 5px 10px;
+    color: aliceblue;
+    outline: none;
+    height: 40px;
+}
+
+.btn:hover {
+    border: 2px solid rgb(39, 0, 39);
+}
+
+.start-btn, .next-btn {
+    width: 200px;
+    font-weight: bold;
+    padding: 10px 20px;
+}
+
+.controls {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hide {
+    display: none;
+}
