@@ -14,12 +14,16 @@
 var startButton = document.getElementById("start-btn");
 var nextButton = document.getElementById("next-btn");
 var finishButton = document.getElementById("finish-btn");
+var submitButton = document.getElementById("submit-btn")
+var playAgainButton = document.getElementById("again-btn");
+var exitButton = document.getElementById("exit-btn")
 var questionContentEl = document.getElementById("container");
 var questionEl = document.getElementById("question");
 var answerButtonsEl = document.getElementById("answers");
 var contentEl = document.getElementById("content");
 var subHeaderEl = document.getElementById("subheader");
-
+var hihgScoreLog = [];
+var scoreIdCounter = 0;
 
 let shuffleQuestions, currentQuestionIndex
 let score = "";
@@ -30,7 +34,9 @@ nextButton.addEventListener("click", () => {
     nextQuestion();
 });
 finishButton.addEventListener("click", endGame);
-
+submitButton.addEventListener("submit", saveScore);
+playAgainButton.addEventListener("click");
+// exitButton.addEventListener("click");
 
 
 
@@ -119,7 +125,11 @@ function selectAnswer(e) {
     if (correct) {
         score = score + 20;
         console.log(score)
+        // alert("Correct!")
+    } else {
+        // alert("Wrong!")
     }
+
     seStatusClass(document.body, correct);
     Array.from(answerButtonsEl.children).forEach(button => {
         seStatusClass(button, button.dataset.correct)
@@ -170,17 +180,22 @@ function clearStatusClass(element) {
 
 
 
-function endGame(result) {
-    finishButton = questionContentEl.classList.add("hide");
-    score = localStorage.setItem("score", score);
+function endGame() {
+
+    score = localStorage.setItem("name", +(score));
 
     document.getElementById("question").innerHTML = "You have completed the quiz!";
     questionContentEl.classList.remove("hide");
-    document.getElementById("subheader").innerHTML = "Your score is " + localStorage.getItem('score') + " ";
+    document.getElementById("subheader").innerHTML = "Your score is " + localStorage.getItem('name') + " ";
     subHeaderEl.classList.remove("hide");
     answerButtonsEl.classList.add("hide");
     
+    document.getElementById("input").classList.remove("hide");
+    
+    document.getElementById("finish-btn").classList.add("hide")
+    document.getElementById("submit-btn").classList.remove("hide")
 
+    
     
 }
 
@@ -189,8 +204,13 @@ function endGame(result) {
 
 
 function saveScore() {
-    
-
+    var nameInput = document.querySelector("input[name='name-input']").value;    
+    document.getElementById("question").innerHTML = "High Scores";
+    document.getElementById("subheader").classList.add("hide");
+    document.getElementById("input").classList.add("hide");
+    document.getElementById("submit-btn").classList.add("hide");
+    document.getElementById("again-btn").classList.remove("hide");
+    document.getElementById("exit-btn").classList.remove("hide");
 }
 
 
@@ -244,5 +264,3 @@ var questions = [
         ]
     },
 ]
-
-

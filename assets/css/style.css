@@ -31,7 +31,7 @@ body {
     border: 2px solid rgb(39, 0, 39);
 }
 
-.start-btn, .next-btn, .finish-btn {
+.start-btn, .next-btn, .finish-btn, .submit-btn, .again-btn, .exit-btn {
     width: 200px;
     font-weight: bold;
     padding: 10px 20px;
@@ -41,6 +41,12 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.input-text {
+    margin: 25px;
+    width: 100%;
+    height: 40px;
 }
 
 .hide {
