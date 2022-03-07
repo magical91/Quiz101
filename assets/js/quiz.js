@@ -4,14 +4,22 @@
 
 // selected answers
 
+// end game
+
+// save name and score
+
 
 
 
 var startButton = document.getElementById("start-btn");
 var nextButton = document.getElementById("next-btn");
+var finishButton = document.getElementById("finish-btn");
 var questionContentEl = document.getElementById("container");
 var questionEl = document.getElementById("question");
-var answerButtonsEl = document.getElementById("answers")
+var answerButtonsEl = document.getElementById("answers");
+var contentEl = document.getElementById("content");
+var subHeaderEl = document.getElementById("subheader");
+
 
 let shuffleQuestions, currentQuestionIndex
 let score = "";
@@ -21,6 +29,12 @@ nextButton.addEventListener("click", () => {
     currentQuestionIndex++;
     nextQuestion();
 });
+finishButton.addEventListener("click", endGame);
+
+
+
+
+
 
 
 function startGame() {
@@ -37,10 +51,20 @@ function startGame() {
 
 
 
+
+
+
 function nextQuestion() {
     resetState();
     showQuestion(shuffleQuestions[currentQuestionIndex]);
 }
+
+
+
+
+
+
+
 
 
 function showQuestion(question) {
@@ -62,6 +86,15 @@ function showQuestion(question) {
     });
 }
 
+
+
+
+
+
+
+
+
+
 function resetState() {
     clearStatusClass(document.body);
     nextButton.classList.add("hide");
@@ -71,6 +104,14 @@ function resetState() {
 }
 
 
+
+
+
+
+
+
+
+
 function selectAnswer(e) {
     var selectedButton = e.target;
     var correct = selectedButton.dataset.correct;
@@ -78,7 +119,6 @@ function selectAnswer(e) {
     if (correct) {
         score = score + 20;
         console.log(score)
-        // localStorage.setItem("score", score);
     }
     seStatusClass(document.body, correct);
     Array.from(answerButtonsEl.children).forEach(button => {
@@ -86,13 +126,20 @@ function selectAnswer(e) {
     })
     if (shuffleQuestions.length > currentQuestionIndex + 1) {
         nextButton.classList.remove("hide")
-    } else {
-        startButton.innerText = "Restart";
-        startButton.classList.remove("hide");
-    
+    } 
+    else {
+        finishButton.classList.remove("hide");
     }
     
 };
+
+
+
+
+
+
+
+
 
 
 function seStatusClass(element, correct) {
@@ -105,10 +152,47 @@ function seStatusClass(element, correct) {
 };
 
 
+
+
+
+
+
+
+
+
 function clearStatusClass(element) {
     element.classList.remove("correct")
     element.classList.remove("wrong")
 }
+
+
+
+
+
+
+function endGame(result) {
+    finishButton = questionContentEl.classList.add("hide");
+    score = localStorage.setItem("score", score);
+
+    document.getElementById("question").innerHTML = "You have completed the quiz!";
+    questionContentEl.classList.remove("hide");
+    document.getElementById("subheader").innerHTML = "Your score is " + localStorage.getItem('score') + " ";
+    subHeaderEl.classList.remove("hide");
+    answerButtonsEl.classList.add("hide");
+    
+
+    
+}
+
+
+
+
+
+function saveScore() {
+    
+
+}
+
 
 
 

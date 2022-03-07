@@ -31,7 +31,7 @@ body {
     border: 2px solid rgb(39, 0, 39);
 }
 
-.start-btn, .next-btn {
+.start-btn, .next-btn, .finish-btn {
     width: 200px;
     font-weight: bold;
     padding: 10px 20px;
