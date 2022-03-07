@@ -14,6 +14,7 @@ var questionEl = document.getElementById("question");
 var answerButtonsEl = document.getElementById("answers")
 
 let shuffleQuestions, currentQuestionIndex
+let score = "";
 
 startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", () => {
@@ -27,6 +28,8 @@ function startGame() {
     shuffleQuestions = questions.sort(() => Math.random() - .5);
     currentQuestionIndex = 0;
     questionContentEl.classList.remove("hide");
+    score = 0;
+    console.log(score);
     nextQuestion();
 }
 
@@ -49,8 +52,13 @@ function showQuestion(question) {
         if (answer.correct) {
             button.dataset.correct = answer.correct;
         }
+    
+
         button.addEventListener("click", selectAnswer);
         answerButtonsEl.appendChild(button);
+
+        
+        
     });
 }
 
@@ -66,6 +74,12 @@ function resetState() {
 function selectAnswer(e) {
     var selectedButton = e.target;
     var correct = selectedButton.dataset.correct;
+    
+    if (correct) {
+        score = score + 20;
+        console.log(score)
+        // localStorage.setItem("score", score);
+    }
     seStatusClass(document.body, correct);
     Array.from(answerButtonsEl.children).forEach(button => {
         seStatusClass(button, button.dataset.correct)
@@ -75,6 +89,7 @@ function selectAnswer(e) {
     } else {
         startButton.innerText = "Restart";
         startButton.classList.remove("hide");
+    
     }
     
 };
@@ -145,3 +160,5 @@ var questions = [
         ]
     },
 ]
+
+
