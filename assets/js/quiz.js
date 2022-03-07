@@ -22,11 +22,16 @@ var questionEl = document.getElementById("question");
 var answerButtonsEl = document.getElementById("answers");
 var contentEl = document.getElementById("content");
 var subHeaderEl = document.getElementById("subheader");
-var hihgScoreLog = [];
+var timerEl = document.getElementById("timer")
+
 var scoreIdCounter = 0;
+var time = 60;
 
 let shuffleQuestions, currentQuestionIndex
-let score = "";
+let score = 0;
+//score.innerText = score;
+
+
 
 startButton.addEventListener("click", startGame);
 nextButton.addEventListener("click", () => {
@@ -34,10 +39,14 @@ nextButton.addEventListener("click", () => {
     nextQuestion();
 });
 finishButton.addEventListener("click", endGame);
-submitButton.addEventListener("submit", saveScore);
-playAgainButton.addEventListener("click");
+submitButton.addEventListener("click", saveScore);
+// playAgainButton.addEventListener("click");
 // exitButton.addEventListener("click");
 
+function tickingClock(){
+    time--;
+    timerEl.textContent = time;
+}
 
 
 
@@ -50,6 +59,10 @@ function startGame() {
     questionContentEl.classList.remove("hide");
     score = 0;
     console.log(score);
+
+    setInterval(tickingClock, 1000)
+
+
     nextQuestion();
 }
 
@@ -182,11 +195,11 @@ function clearStatusClass(element) {
 
 function endGame() {
 
-    score = localStorage.setItem("name", +(score));
+    // score = localStorage.setItem("name", +(score));
 
     document.getElementById("question").innerHTML = "You have completed the quiz!";
     questionContentEl.classList.remove("hide");
-    document.getElementById("subheader").innerHTML = "Your score is " + localStorage.getItem('name') + " ";
+    document.getElementById("subheader").innerHTML = "Your score is " + score + " ";
     subHeaderEl.classList.remove("hide");
     answerButtonsEl.classList.add("hide");
     
@@ -200,20 +213,46 @@ function endGame() {
 }
 
 
-
-
-
 function saveScore() {
     var nameInput = document.querySelector("input[name='name-input']").value;    
     document.getElementById("question").innerHTML = "High Scores";
     document.getElementById("subheader").classList.add("hide");
     document.getElementById("input").classList.add("hide");
-    document.getElementById("submit-btn").classList.add("hide");
+    
     document.getElementById("again-btn").classList.remove("hide");
     document.getElementById("exit-btn").classList.remove("hide");
+
+    var highScore = JSON.parse(localStorage.getItem("score")) || [];
+    console.log("highscore", highScore)
+
+    var newScore = {
+        score: score,
+        initials: nameInput
+    }
+
+    highScore.push(newScore)
+
+    localStorage.setItem("score", JSON.stringify(highScore));
+
+    displayHighScore(highScore)
 }
 
 
+
+function displayHighScore(highScore) {
+    
+   // var highScore = JSON.parse(localStorage.getItem("score")) || [];
+    console.log(highScore)
+
+    highScore.forEach(function(score){
+        var liTag = document.createElement("li")
+        liTag.textContent = score.initials + "-" + score.score;
+
+        var highScoreList = document.getElementById("highScore");
+        highScoreList.append(liTag)
+    })
+  
+}
 
 
 
