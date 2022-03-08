@@ -25,6 +25,7 @@ body {
     color: aliceblue;
     outline: none;
     height: 40px;
+    text-decoration: none;
 }
 
 .btn:hover {
@@ -51,4 +52,18 @@ body {
 
 .hide {
     display: none;
+}
+
+.timer {
+    font-size: xx-large;
+    margin-left: 50px;
+}
+
+.next-btn {
+    margin-right: 200px;
+}
+
+.again-btn {
+    text-align: center;
+    font-size: small;
 }

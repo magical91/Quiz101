@@ -23,7 +23,7 @@ var answerButtonsEl = document.getElementById("answers");
 var contentEl = document.getElementById("content");
 var subHeaderEl = document.getElementById("subheader");
 var timerEl = document.getElementById("timer")
-
+var maxHighScores = 5;
 
 var time = 30;
 
@@ -38,13 +38,19 @@ nextButton.addEventListener("click", () => {
     nextQuestion();
 });
 finishButton.addEventListener("click", endGame);
+
 submitButton.addEventListener("click", saveScore);
-// playAgainButton.addEventListener("click", playAgain);
 exitButton.addEventListener("click", exitQuiz);
 
+
 function tickingClock() {
+    
     time--;
     timerEl.textContent = time;
+    if (time === 0) {
+        document.getElementById("timer").classList.add("hide")
+    }
+    
 }
 
 
@@ -59,10 +65,13 @@ function startGame() {
     currentQuestionIndex = 0;
     questionContentEl.classList.remove("hide");
     score = 0;
-    console.log(score);
-
+    
+    document.getElementById("timer").classList.remove("hide");
     setInterval(tickingClock, 1000)
-
+    if (setInterval === 0) {
+        document.getElementById("timer").classList.add("hide");
+    }
+    
 
     nextQuestion();
     
@@ -139,10 +148,10 @@ function selectAnswer(e) {
     
     if (correct) {
         score = score + 20;
-        console.log(score)
-        // alert("Correct!")
+        
+        alert("Correct!")
     } else {
-        // alert("Wrong!")
+        alert("Wrong!")
     }
 
     seStatusClass(document.body, correct);
@@ -197,7 +206,7 @@ function clearStatusClass(element) {
 
 function endGame() {
 
-
+    document.getElementById("timer").classList.add("hide");
     document.getElementById("question").innerHTML = "You have completed the quiz!";
     questionContentEl.classList.remove("hide");
     document.getElementById("subheader").innerHTML = "Your score is " + score + " ";
@@ -217,12 +226,17 @@ function endGame() {
 function saveScore() {
     var nameInput = document.querySelector("input[name='name-input']").value;    
     document.getElementById("question").innerHTML = "High Scores";
+    document.getElementById("question").style.textAlign = "center";
+    document.getElementById("question").style.fontSize = "50px";
+    document.getElementById("question").style.borderBottom = "3px solid purple"
+    document.getElementById("question").style.paddingBottom = "10px"
     document.getElementById("subheader").classList.add("hide");
     document.getElementById("input").classList.add("hide");
     document.getElementById("highScore").classList.remove("hide");
     document.getElementById("submit-btn").classList.add("hide");
     document.getElementById("again-btn").classList.remove("hide");
     document.getElementById("exit-btn").classList.remove("hide");
+    
 
     var highScore = JSON.parse(localStorage.getItem("score")) || [];
     console.log("highscore", highScore)
@@ -233,6 +247,10 @@ function saveScore() {
     }
 
     highScore.push(newScore)
+
+    highScore.sort( (a,b) => b.score - a.score)
+
+    highScore.splice(5);
 
     localStorage.setItem("score", JSON.stringify(highScore));
 
@@ -249,6 +267,10 @@ function displayHighScore(highScore) {
     highScore.forEach(function(score){
         var liTag = document.createElement("li")
         liTag.textContent = score.initials + "-" + score.score;
+        liTag.style.listStyle = "none";
+        liTag.style.textAlign = "center";
+        liTag.style.padding = "5px";
+        liTag.style.marginRight = "25px";
 
         var highScoreList = document.getElementById("highScore");
         highScoreList.append(liTag)
