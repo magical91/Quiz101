@@ -15,4 +15,4 @@ A set of questions to test the user's knowledge of JavaScript.
 
 [https://github.com/magical91/Quiz101](https://github.com/magical91/Quiz101)
 
-![Quiz101Sc](assets\images\ScQuiz.png)
+![Quiz101Sc](https://github.com/magical91/Quiz101/blob/main/assets/images/ScQuiz.png?raw=true)
