@@ -24,12 +24,11 @@ var contentEl = document.getElementById("content");
 var subHeaderEl = document.getElementById("subheader");
 var timerEl = document.getElementById("timer")
 
-var scoreIdCounter = 0;
-var time = 60;
+
+var time = 30;
 
 let shuffleQuestions, currentQuestionIndex
 let score = 0;
-//score.innerText = score;
 
 
 
@@ -40,13 +39,15 @@ nextButton.addEventListener("click", () => {
 });
 finishButton.addEventListener("click", endGame);
 submitButton.addEventListener("click", saveScore);
-// playAgainButton.addEventListener("click");
-// exitButton.addEventListener("click");
+// playAgainButton.addEventListener("click", playAgain);
+exitButton.addEventListener("click", exitQuiz);
 
-function tickingClock(){
+function tickingClock() {
     time--;
     timerEl.textContent = time;
 }
+
+
 
 
 
@@ -64,6 +65,7 @@ function startGame() {
 
 
     nextQuestion();
+    
 }
 
 
@@ -195,7 +197,6 @@ function clearStatusClass(element) {
 
 function endGame() {
 
-    // score = localStorage.setItem("name", +(score));
 
     document.getElementById("question").innerHTML = "You have completed the quiz!";
     questionContentEl.classList.remove("hide");
@@ -207,7 +208,7 @@ function endGame() {
     
     document.getElementById("finish-btn").classList.add("hide")
     document.getElementById("submit-btn").classList.remove("hide")
-
+    
     
     
 }
@@ -218,7 +219,8 @@ function saveScore() {
     document.getElementById("question").innerHTML = "High Scores";
     document.getElementById("subheader").classList.add("hide");
     document.getElementById("input").classList.add("hide");
-    
+    document.getElementById("highScore").classList.remove("hide");
+    document.getElementById("submit-btn").classList.add("hide");
     document.getElementById("again-btn").classList.remove("hide");
     document.getElementById("exit-btn").classList.remove("hide");
 
@@ -241,7 +243,7 @@ function saveScore() {
 
 function displayHighScore(highScore) {
     
-   // var highScore = JSON.parse(localStorage.getItem("score")) || [];
+   
     console.log(highScore)
 
     highScore.forEach(function(score){
@@ -253,6 +255,13 @@ function displayHighScore(highScore) {
     })
   
 }
+
+
+
+function exitQuiz() {
+    window.close();
+};
+
 
 
 
